@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>熊猫停车</title>
+</head>
+<link rel="stylesheet" href="normalize.css">
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script src="auto-size.js"></script>
+
+
+<style>
+    .main {
+        padding: 1rem 0.3rem;
+    }
+    p,h3{
+        padding: 0;
+        margin: 0;
+    }
+    .main h3{
+        font-size: 0.45rem;
+    }
+    .main p{
+        font-size: 0.25rem;
+        margin-top: 0.4rem;
+        color: #989898;
+    }
+    img{
+        width: 3.8rem;
+        margin: auto;
+        display: block;
+        margin-top: 1.5rem;
+    }
+    .p{
+        text-align: center;
+        font-size: 0.25rem;
+    }
+    footer {
+        position:fixed;
+        bottom: 0.2rem;
+        font-size: 0.15rem;
+        text-align: center;
+        width: 100%;
+    }
+
+</style>
+<body>
+<div class="main">
+    <div class="">
+        <h3 id="port"></h3>
+        <p id="park"></p>
+        <p id="add"></p>
+        <p id="phone"></p>
+    </div>
+    <img id="myImage" alt="" src="">
+    <div class="p">请长按识别二维码开启车位锁</div>
+</div>
+<footer>
+    <p>Copyright 2017 -2018 pandaparking.cn</p>
+    <p>All Rights Reserved</p>
+</footer>
+</body>
+<script type="text/javascript">
+    var urlbase = "http://api.pandaparking.cn/";
+    window.onload = function ()//用window的onload事件，窗体加载完毕的时候
+    {
+        var theRequest = GetRequest();
+        var nowurl = document.URL;
+        document.getElementById("myImage").src = "http://pan.baidu.com/share/qrcode?w=650&h=650&url=" + nowurl;
+        var parkNumber;
+        var imei;
+        if (theRequest.parkNumber != '') {
+            parkNumber = theRequest.parkNumber;
+        }
+        if (theRequest.imei != '') {
+            imei = theRequest.imei;
+        }
+        if (parkNumber != null) {
+            var url = urlbase + "parking/park/" + parkNumber + "/findParkByParkNum";
+
+            $.ajax({
+                type: "GET",
+                url: url,
+                contentType: 'application/json',
+                data: {},
+                success: function (data) {
+                    var dataObj = data.data;
+                    document.getElementById("park").innerHTML = dataObj.name;
+                    document.getElementById("add").innerHTML = dataObj.address;
+                }
+            })
+        }
+        if (imei != null) {
+            var url = urlbase + "parking/port/findPortByImei";
+            $.ajax({
+                type: "GET",
+                url: url,
+                contentType: 'application/json',
+                data: {"imei": imei},
+                success: function (data) {
+                    var dataObj = data.data;
+                    document.getElementById("port").innerHTML = parseInt(dataObj.portNumber.substring(dataObj.portNumber.length - 5, dataObj.portNumber.length)) + "号泊位";
+                    document.getElementById("park").innerHTML = dataObj.parkName;
+                    document.getElementById("add").innerHTML = dataObj.address;
+                }
+            })
+        }
+    }
+
+    function GetRequest() {
+        var url = location.search; //获取url中"?"符后的字串
+        var theRequest = new Object();
+        if (url.indexOf("?") != -1) {
+            var str = url.substr(1);
+            strs = str.split("&");
+            for (var i = 0; i < strs.length; i++) {
+                theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+            }
+        }
+        return theRequest;
+    }
+
+</script>
+</html>

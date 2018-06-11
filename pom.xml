@@ -1,0 +1,141 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.sdy</groupId>
+  <artifactId>zjdemo</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>war</packaging>
+  
+  <parent>
+  	<groupId>org.springframework.boot</groupId>
+  	<artifactId>spring-boot-starter-parent</artifactId>
+  	<version>1.3.2.RELEASE</version>
+  	<relativePath/>
+  </parent>
+  <properties>
+  	<start-class>com.sdy.Application</start-class>
+	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	<java.version>1.8</java.version>
+  </properties>
+  <repositories>
+	 <repository>
+		<id>goeasy</id> 
+		<name>goeasy</name> 
+		<url>http://maven.goeasy.io/content/repositories/releases/ </url>
+   </repository> 
+  </repositories>
+  
+  <dependencies>
+ 	
+ 	<!-- msgpack -->
+  	<dependency>
+	   <groupId>org.msgpack</groupId>
+	   <artifactId>msgpack</artifactId>
+	   <version>0.6.7</version>
+	</dependency>
+  	<!-- springboot 相关依赖 -->
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter</artifactId>
+	</dependency>
+	<dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-web</artifactId>
+          <!-- 移除嵌入式tomcat插件 （打war包部署到tomcat时使用）-->
+		    <exclusions>
+		        <exclusion>
+		            <groupId>org.springframework.boot</groupId>
+		            <artifactId>spring-boot-starter-tomcat</artifactId>
+		        </exclusion>
+		    </exclusions>
+     </dependency>
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-test</artifactId>
+		<scope>test</scope>
+	</dependency>    
+	<!-- mybatis 依赖 -->
+	<dependency>
+		<groupId>org.mybatis.spring.boot</groupId>
+		<artifactId>mybatis-spring-boot-starter</artifactId>
+		<version>1.1.1</version>
+	</dependency>
+	<!-- mysql 依赖 -->
+    <dependency>  
+         <groupId>mysql</groupId>  
+         <artifactId>mysql-connector-java</artifactId>  
+    </dependency>  
+    <!-- servlet 依赖. （对jsp的支持）-->
+    <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>javax.servlet-api</artifactId>
+        <scope>provided</scope>
+    </dependency>
+    <!-- jstl 依赖. （对jsp的支持）-->
+    <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>jstl</artifactId>
+    </dependency>
+  	 <!-- tomcat 的支持.（对jsp的支持）-->
+    <dependency>
+        <groupId>org.apache.tomcat.embed</groupId>
+        <artifactId>tomcat-embed-jasper</artifactId>
+        <scope>provided</scope>
+    </dependency> 
+	<!-- 阿里云消息队列 -->
+	<dependency>
+	   <groupId>com.aliyun.openservices</groupId>
+	   <artifactId>ons-client</artifactId>
+	   <version>1.7.0.Final</version>
+	</dependency>
+	
+	<!-- java_websocket -->
+	<dependency>
+		<groupId>java_websocket</groupId>
+		<artifactId>java_websocket</artifactId>
+		<version>1.0</version>
+		<scope>system</scope>
+		<systemPath>${project.basedir}/lib/java_websocket.jar</systemPath>
+	</dependency>
+	
+	<dependency>
+	    <groupId>com.alibaba</groupId>
+	    <artifactId>fastjson</artifactId>
+	    <version>1.2.12</version>
+	</dependency>
+	
+	<!-- FTP 依赖 -->
+	<dependency>
+    <groupId>commons-net</groupId>
+    <artifactId>commons-net</artifactId>
+    <version>1.4.1</version>
+</dependency>
+  </dependencies> 
+      
+   <build>
+		<finalName>zjdemo</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<!-- 此插件是将外部jar打到war的 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.3</version>
+				<configuration>
+					<warName>${project.artifactId}</warName>
+					<webResources>
+						<resource>
+							<directory>lib/</directory>
+							<targetPath>WEB-INF/lib</targetPath>
+							<includes>
+								<include>**/*.jar</include>
+							</includes>
+						</resource>
+					</webResources>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

@@ -1,4 +1,4 @@
-package com.sdy.controller.information.test.annotation;
+package com.sdy.controller.test.annotation;
 import java.lang.annotation.*;
 /**
  * 自定义注解

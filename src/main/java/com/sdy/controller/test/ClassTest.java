@@ -1,4 +1,4 @@
-package com.sdy.controller.information.test;
+package com.sdy.controller.test;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

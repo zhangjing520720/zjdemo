@@ -1,4 +1,4 @@
-package com.sdy.controller.information.test.mq;
+package com.sdy.controller.test.mq;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

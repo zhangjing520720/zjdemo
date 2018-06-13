@@ -1,4 +1,4 @@
-package com.sdy.controller.information.test.webSocket;
+package com.sdy.controller.test.webSocket;
 
 import java.io.IOException;
 import java.lang.management.ManagementFactory;

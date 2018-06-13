@@ -1,4 +1,4 @@
-package com.sdy.controller.information.test.thread;
+package com.sdy.controller.test.thread;
 
 public class Thread3 {
 	

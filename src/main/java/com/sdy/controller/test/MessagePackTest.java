@@ -1,4 +1,4 @@
-package com.sdy.controller.information.test;
+package com.sdy.controller.test;
 
 import java.io.IOException;
 import java.util.HashMap;

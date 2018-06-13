@@ -1,4 +1,4 @@
-package com.sdy.controller.information.test.classLoad;
+package com.sdy.controller.test.classLoad;
 
 public class SonTest extends FatherTest{
 	

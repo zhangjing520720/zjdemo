@@ -49,7 +49,7 @@ import com.aliyun.openservices.ons.api.PropertyKeyConst;
 import com.aliyun.openservices.ons.api.SendResult;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.sdy.controller.base.BaseController;
-import com.sdy.controller.information.test.annotation.AuthLogin;
+import com.sdy.controller.test.annotation.AuthLogin;
 import com.sdy.domain.Page;
 import com.sdy.domain.User;
 import com.sdy.domain.MessagePackModel;

@@ -1,13 +1,8 @@
 package com.sdy.domain;
 
-import java.io.Serializable;
-import java.util.Arrays;
-import java.util.Collection;
 
 import org.msgpack.annotation.Message;
 
-import com.fasterxml.jackson.annotation.JsonView;
-import com.sdy.controller.information.user.View;
 
 @Message
 public class MessagePackModel {

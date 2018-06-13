@@ -3,7 +3,7 @@ package com.sdy.domain;
 import java.io.Serializable;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.sdy.controller.information.user.View;
+import com.sdy.controller.user.View;
 
 public class User implements Serializable{
 

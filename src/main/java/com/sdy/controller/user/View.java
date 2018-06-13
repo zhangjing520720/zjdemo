@@ -1,4 +1,4 @@
-package com.sdy.controller.information.user;
+package com.sdy.controller.user;
 
 public class View {
 	

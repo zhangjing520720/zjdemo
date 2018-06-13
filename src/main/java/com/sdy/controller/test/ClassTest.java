@@ -3,7 +3,7 @@ package com.sdy.controller.test;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import com.sdy.controller.information.user.UserController;
+import com.sdy.controller.user.UserController;
 import com.sdy.domain.Page;
 import com.sdy.domain.User;
 

@@ -4,7 +4,7 @@
 
 <mapper namespace = "UserMapper">
 
-    <select id="findOneById" resultType="com.sdy.domain.User">
+    <select id="findOneById" resultType="com.sdy.model.User">
     select * from user where id = #{id}
   </select>
   

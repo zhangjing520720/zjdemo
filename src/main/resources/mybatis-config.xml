@@ -8,12 +8,6 @@
         <setting name="useGeneratedKeys" value="true" /> 
         <setting name="defaultExecutorType" value="REUSE" /> 
     </settings>
-
-	<typeAliases>
-		<typeAlias type="com.sdy.util.PageData" alias="pd"/>
-		<!-- 分页 -->
-		<typeAlias type="com.sdy.domain.Page" alias="Page"/>
-	</typeAliases>
 	
 	<plugins>
 		<plugin interceptor="com.sdy.plugin.PagePlugin">

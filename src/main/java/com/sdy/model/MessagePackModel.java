@@ -1,4 +1,4 @@
-package com.sdy.domain;
+package com.sdy.model;
 
 
 import org.msgpack.annotation.Message;

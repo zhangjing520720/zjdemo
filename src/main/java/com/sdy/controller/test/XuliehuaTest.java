@@ -44,9 +44,9 @@ import com.aliyun.openservices.ons.api.PropertyKeyConst;
 import com.aliyun.openservices.ons.api.SendResult;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.sdy.controller.base.BaseController;
-import com.sdy.domain.Page;
-import com.sdy.domain.User;
-import com.sdy.domain.MessagePackModel;
+import com.sdy.model.MessagePackModel;
+import com.sdy.model.Page;
+import com.sdy.model.User;
 import com.sdy.service.user.UserService;
 import com.sdy.util.PageData;
 

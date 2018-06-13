@@ -14,8 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.sdy.controller.base.BaseController;
-import com.sdy.domain.Page;
-import com.sdy.domain.User;
+import com.sdy.model.Page;
+import com.sdy.model.User;
 import com.sdy.service.user.UserService;
 import com.sdy.util.PageData;
 

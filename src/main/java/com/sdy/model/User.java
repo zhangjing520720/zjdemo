@@ -1,4 +1,4 @@
-package com.sdy.domain;
+package com.sdy.model;
 
 import java.io.Serializable;
 

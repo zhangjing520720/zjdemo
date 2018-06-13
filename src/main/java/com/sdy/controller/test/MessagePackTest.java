@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 import org.msgpack.MessagePack;
 import com.sdy.controller.base.BaseController;
-import com.sdy.domain.MessagePackModel;
+import com.sdy.model.MessagePackModel;
 
 
 public class MessagePackTest extends BaseController{

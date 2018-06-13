@@ -4,8 +4,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import com.sdy.controller.user.UserController;
-import com.sdy.domain.Page;
-import com.sdy.domain.User;
+import com.sdy.model.Page;
+import com.sdy.model.User;
 
 public class ClassTest {
 	

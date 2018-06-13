@@ -9,8 +9,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import com.sdy.dao.DaoSupport;
-import com.sdy.domain.Page;
-import com.sdy.domain.User;
+import com.sdy.model.Page;
+import com.sdy.model.User;
 import com.sdy.util.PageData;
 
 @Service("userService")

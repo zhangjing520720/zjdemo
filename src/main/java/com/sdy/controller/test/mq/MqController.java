@@ -19,7 +19,7 @@ import com.aliyun.openservices.ons.api.ONSFactory;
 import com.aliyun.openservices.ons.api.Producer;
 import com.aliyun.openservices.ons.api.PropertyKeyConst;
 import com.aliyun.openservices.ons.api.SendResult;
-import com.sdy.domain.User;
+import com.sdy.model.User;
 
 /**
  * 阿里云MQ测试

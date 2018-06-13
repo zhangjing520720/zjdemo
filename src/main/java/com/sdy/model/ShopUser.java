@@ -1,4 +1,4 @@
-package com.sdy.domain;
+package com.sdy.model;
 
 public class ShopUser extends User{
 

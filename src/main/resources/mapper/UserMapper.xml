@@ -4,12 +4,12 @@
 
 <mapper namespace = "UserMapper">
 
-    <select id="findOneById" resultType="com.sdy.model.User">
+    <select id="findOneById" resultType="User">
     select * from user where id = #{id}
   </select>
   
    <!-- 用户列表 -->
-	<select id="infolistPage" parameterType="page" resultType="pd">
+	<select id="infolistPage" parameterType="Page" resultType="PageData">
 		select  n.*
 		from user n 
 		where 1=1

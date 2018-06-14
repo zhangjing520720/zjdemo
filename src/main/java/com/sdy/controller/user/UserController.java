@@ -8,7 +8,9 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -18,21 +20,15 @@ import com.sdy.model.Page;
 import com.sdy.model.User;
 import com.sdy.service.user.UserService;
 import com.sdy.util.PageData;
+import com.sdy.util.redis.RedisUtil;
 
 
 @Controller
 @RequestMapping("/user")
 public class UserController extends BaseController{
 	
-	/*
-	 * 一个springboot整合jsp的实例
-	 */
-	private static String Commonkey ="BC-433bbd1216354d05873d0f5f666624da";
-	private static String Subscribekey ="BS-ef43aa76d7e5424bbd542d4c633fcc55";
-	
-	 static AtomicLong atomic = new AtomicLong(1);
-
-	
+	//限流
+	static AtomicLong atomic = new AtomicLong(1);
 	
 	@Resource(name="userService")
 	private UserService userService;
@@ -44,32 +40,16 @@ public class UserController extends BaseController{
 	@ResponseBody
 	public String xianliuTotal(HttpServletRequest request){
 		String message="success";
-		
-		
-		
 		try {
 		    if(atomic.incrementAndGet() >1) {
-		    	System.out.println(atomic.get());
 		    	message="限流了";
 		    }
-		    
 		} finally {
 		    atomic.decrementAndGet();
 		}
 		return message;
 	}
 	
-	/**
-	 * 限流接口时间窗请求数示例
-	 */
-	@RequestMapping("/xianliuTime")
-	@ResponseBody
-	public String xianliuTime(HttpServletRequest request){
-		String message="success";
-		
-		
-		return message;
-	}
 	
 	/**
 	 *@JsonView示例
@@ -88,6 +68,29 @@ public class UserController extends BaseController{
 	     return listUsers; 
 	}
 	
+	/**
+	 * redis获取数据示例
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/getUser",headers = "Accept=*/*", method = RequestMethod.POST,produces = "application/json;charset=UTF-8")
+	public String getUser(HttpServletRequest request,@RequestBody PageData pd){
+		String message ="";
+		
+		
+		Object obj = RedisUtil.getKey(pd.get("id")==null?null:pd.get("id").toString());		
+		if(null == obj){
+			User user = new User();
+			user.setId(pd.get("id").toString());
+			User u = userService.findOneById(user);
+			message =json.toJSONString(u);
+		}else{
+			message=obj.toString();
+		}
+		
+		return message;
+	}
+	
+	@ResponseBody
 	@RequestMapping("/getList")
 	public ModelAndView getList(Page page){
 	
@@ -107,17 +110,5 @@ public class UserController extends BaseController{
 		}
 		return mv;
 	}
-	
-	
-	public String getU(String s){
-		
-		System.out.println("进来了");
-		return s;
-	}
-		
-	
-	public static void main(String[] args) {
-		
-		System.out.println(1>>4);
-	}
+
 }

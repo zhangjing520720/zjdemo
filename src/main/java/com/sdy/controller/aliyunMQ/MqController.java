@@ -1,4 +1,4 @@
-package com.sdy.controller.test.mq;
+package com.sdy.controller.aliyunMQ;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -23,6 +23,7 @@ import com.sdy.model.User;
 
 /**
  * 阿里云MQ测试
+ * 需要开通阿里云MQ服务
  */
 @Controller
 @RequestMapping("/mq")

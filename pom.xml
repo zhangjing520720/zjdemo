@@ -96,7 +96,11 @@
 	   <artifactId>ons-client</artifactId>
 	   <version>1.7.0.Final</version>
 	</dependency>
-	
+	<!-- MQ -->
+	<dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-amqp</artifactId>
+	</dependency>
 	<!-- java_websocket -->
 	<dependency>
 		<groupId>java_websocket</groupId>

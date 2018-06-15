@@ -7,6 +7,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,7 @@ import com.sdy.model.Page;
 import com.sdy.model.User;
 import com.sdy.service.user.UserService;
 import com.sdy.util.PageData;
+import com.sdy.util.rabbitMQ.HelloSender1;
 import com.sdy.util.redis.RedisUtil;
 
 
@@ -32,7 +34,7 @@ public class UserController extends BaseController{
 	
 	@Resource(name="userService")
 	private UserService userService;
-	
+		
 	/**
 	 * 限流总请求数示例
 	 */
@@ -69,46 +71,32 @@ public class UserController extends BaseController{
 	}
 	
 	/**
-	 * redis获取数据示例
+	 * 根据ID获取用户
+	 * 先取redis在取mysql
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/getUser",headers = "Accept=*/*", method = RequestMethod.POST,produces = "application/json;charset=UTF-8")
 	public String getUser(HttpServletRequest request,@RequestBody PageData pd){
 		String message ="";
-		
-		
-		Object obj = RedisUtil.getKey(pd.get("id")==null?null:pd.get("id").toString());		
-		if(null == obj){
-			User user = new User();
-			user.setId(pd.get("id").toString());
-			User u = userService.findOneById(user);
-			message =json.toJSONString(u);
+		if(pd.get("id")!=null || !pd.getString("id").equals("")){
+			Object obj = new Object();
+			try{
+				obj =RedisUtil.getKey(pd.get("id").toString());	
+			}catch (Exception e) {}
+			if(null == obj){
+				User user = new User();
+				user.setId(pd.get("id").toString());
+				User u = userService.findOneById(user);
+				message =json.toJSONString(u);
+			}else{
+				message=obj.toString();
+			}
 		}else{
-			message=obj.toString();
+			message="参数不齐，请传ID";
 		}
-		
 		return message;
 	}
 	
-	@ResponseBody
-	@RequestMapping("/getList")
-	public ModelAndView getList(Page page){
-	
-		ModelAndView mv = this.getModelAndView();
-		List<PageData> list = new ArrayList<PageData>();
-		PageData pd = new PageData();
-		try{
-			pd = this.getPageData();
-			page.setPd(pd);
-			//list =(List<PageData>)userService.infoListPage(page);
-			System.out.println(list);
-			mv.setViewName("information/user/user_list");
-			mv.addObject("userList", list);
-			mv.addObject("pd", pd);
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		return mv;
-	}
+
 
 }

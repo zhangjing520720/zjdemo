@@ -1,29 +1,15 @@
 package com.sdy.controller.rabbitMQ;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import com.sdy.controller.base.BaseController;
-import com.sdy.model.Page;
-import com.sdy.model.User;
-import com.sdy.service.user.UserService;
-import com.sdy.util.PageData;
+import com.sdy.util.rabbitMQ.CallBackSender;
+import com.sdy.util.rabbitMQ.FanoutSender;
 import com.sdy.util.rabbitMQ.HelloSender1;
-import com.sdy.util.redis.RedisUtil;
+import com.sdy.util.rabbitMQ.TopicSender;
 
 /**
  * RabbiitMQ测试
@@ -40,6 +26,12 @@ public class RabbitMQController extends BaseController{
     private HelloSender1 helloSender1;
     @Autowired
     private HelloSender1 helloSender2;
+    @Autowired
+    private TopicSender topicSender;
+    @Autowired
+    private FanoutSender fanoutSender;
+    @Autowired
+    private CallBackSender callBackSender;
     
     /**
      * 单生产-单消费
@@ -74,5 +66,30 @@ public class RabbitMQController extends BaseController{
         }
         return "{\"msg\":\"success\"}";
     }
-	
+    
+    
+    /**
+     * topic exchange类型rabbitmq测试
+     */
+    @RequestMapping(value= "/topicTest",headers = "Accept=*/*", method = RequestMethod.POST,produces = "application/json;charset=UTF-8")
+    public String topicTest() {
+           topicSender.send();
+           return "{\"msg\":\"success\"}";
+    }
+    /**
+     * fanout exchange类型rabbitmq测试
+     */
+    @RequestMapping(value= "/fanoutTest",headers = "Accept=*/*", method = RequestMethod.POST,produces = "application/json;charset=UTF-8")
+    public String fanoutTest() {
+           fanoutSender.send();
+           return "{\"msg\":\"success\"}";
+    }
+    /**
+     * rabbitmq 消息确认
+     */
+    @RequestMapping(value= "/callback",headers = "Accept=*/*", method = RequestMethod.POST,produces = "application/json;charset=UTF-8")
+    public String callbak() {
+        callBackSender.send();
+        return "{\"msg\":\"success\"}";
+    }
 }

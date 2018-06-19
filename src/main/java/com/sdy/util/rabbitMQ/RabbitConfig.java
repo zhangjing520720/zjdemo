@@ -129,7 +129,7 @@ public class RabbitConfig {
     }
     
     /**
-     * 将队列topic.ack与exchange绑定，binding_key为topic.ack,就是完全匹配
+     * 将队列topicack与exchange绑定
      * @param queueMessage
      * @param exchange
      * @return

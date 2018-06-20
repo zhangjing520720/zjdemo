@@ -1,7 +1,11 @@
 package com.sdy.util.rabbitMQ;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.amqp.core.AcknowledgeMode;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.core.FanoutExchange;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.Queue;
@@ -177,5 +181,60 @@ public class RabbitConfig {
         return container;  
     }  
   
+    /**
+     * 以下为延迟队列测试
+     * 
+     */
+    //exchange name  
+    public static final String DEFAULT_EXCHANGE = "KSHOP";  
+    //DLX QUEUE  
+    public static final String DEFAULT_DEAD_LETTER_QUEUE_NAME = "kshop.dead.letter.queue";  
+    //DLX repeat QUEUE 死信转发队列  
+    public static final String DEFAULT_REPEAT_TRADE_QUEUE_NAME = "kshop.repeat.trade.queue";  
+    //Hello 测试消息队列名称  
+    public static final String HELLO_QUEUE_NAME = "DelayQueue";  
+    /**
+     * 信道配置  
+     * @return
+     */
+    @Bean  
+    public DirectExchange defaultExchange() {  
+        return new DirectExchange("KSHOP");  
+    } 
+    
+    @Bean  
+    public Queue repeatTradeQueue() {  
+        Queue queue = new Queue("kshop.repeat.trade.queue",true,false,false);  
+        return queue;   
+    }  
+      
+    @Bean  
+    public Binding  drepeatTradeBinding() {  
+        return BindingBuilder.bind(repeatTradeQueue()).to(defaultExchange()).with("kshop.repeat.trade.queue");  
+    }  
 
+    @Bean  
+    public Queue deadLetterQueue() {  
+        Map<String, Object> arguments = new HashMap<>();  
+        arguments.put("x-dead-letter-exchange", "KSHOP");  
+        arguments.put("x-dead-letter-routing-key", "kshop.repeat.trade.queue");  
+        Queue queue = new Queue("kshop.dead.letter.queue",true,false,false,arguments);  
+        System.out.println("arguments :" + queue.getArguments());  
+        return queue;   
+    }  
+  
+    @Bean  
+    public Binding  deadLetterBinding() {  
+        return BindingBuilder.bind(deadLetterQueue()).to(defaultExchange()).with("kshop.dead.letter.queue");  
+    }  
+    @Bean  
+    public Queue delayQueue() {  
+        Queue queue = new Queue("DelayQueue");  
+        return queue;   
+    }  
+  
+    @Bean  
+    public Binding binding() {  
+        return BindingBuilder.bind(delayQueue()).to(defaultExchange()).with("DelayQueue");  
+    }  
 }

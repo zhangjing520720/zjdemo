@@ -118,10 +118,22 @@
 	
 	<!-- FTP 依赖 -->
 	<dependency>
-    <groupId>commons-net</groupId>
-    <artifactId>commons-net</artifactId>
-    <version>1.4.1</version>
-</dependency>
+    	<groupId>commons-net</groupId>
+    	<artifactId>commons-net</artifactId>
+    	<version>1.4.1</version>
+    </dependency>
+    <!-- elasticsearch 依赖 -->
+    <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>jna</artifactId>
+            <version>3.0.9</version>
+        </dependency> 
+       
+       
   </dependencies> 
       
    <build>

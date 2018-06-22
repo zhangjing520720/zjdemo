@@ -15,6 +15,8 @@
 * Redis
 * 阿里云MQ
 * RabbitMQ
+* node.js
+* ElasticSearch
 
 等等乱七八糟的示例，持续完善中！
 

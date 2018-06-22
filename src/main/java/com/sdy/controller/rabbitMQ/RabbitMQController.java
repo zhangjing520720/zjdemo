@@ -15,6 +15,7 @@ import com.sdy.util.rabbitMQ.TopicSender;
 /**
  * RabbiitMQ测试
  * 通过docker安装的RabbitMQ
+ * 测试前需先通过doker启动RabbitMQ容器
  * @author Rex
  */
 @RestController

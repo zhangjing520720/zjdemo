@@ -30,12 +30,9 @@ import com.rabbitmq.client.Channel;
 @Component
 public class RabbitConfig {
 
-	@Value("${spring.rabbitmq.host}")
+	@Value("${spring.rabbitmq.addresses}")
     private String addresses;
     
-    @Value("${spring.rabbitmq.port}")
-    private String port;
-
     @Value("${spring.rabbitmq.username}")
     private String username;
 
@@ -52,7 +49,7 @@ public class RabbitConfig {
     public ConnectionFactory connectionFactory() {
 
         CachingConnectionFactory connectionFactory = new CachingConnectionFactory();
-        connectionFactory.setAddresses(addresses+":"+port);
+        connectionFactory.setAddresses(addresses);
         connectionFactory.setUsername(username);
         connectionFactory.setPassword(password);
         connectionFactory.setVirtualHost(virtualHost);

@@ -12,13 +12,14 @@ import org.springframework.stereotype.Component;
 public class CallBackSender implements  RabbitTemplate.ConfirmCallback{
     @Autowired
     private RabbitTemplate rabbitTemplatenew;
+    
     public void send() {
-        
-//        rabbitTemplatenew.setConfirmCallback(this);
+    	
         String msg="callbackSender : i am callback sender";
         System.out.println(msg );
         CorrelationData correlationData = new CorrelationData(UUID.randomUUID().toString());  
-        System.out.println("callbackSender UUID: " + correlationData.getId());  
+        System.out.println("callbackSender UUID: " + correlationData.getId()); 
+        rabbitTemplatenew.setConfirmCallback(this);
         this.rabbitTemplatenew.convertAndSend("exchange", "topicack", msg, correlationData);  
     }
 
@@ -26,4 +27,5 @@ public class CallBackSender implements  RabbitTemplate.ConfirmCallback{
         // TODO Auto-generated method stub
         System.out.println("callbakck confirm: " + correlationData.getId());
     }
+    
 }

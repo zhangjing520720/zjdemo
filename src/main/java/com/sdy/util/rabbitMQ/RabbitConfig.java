@@ -125,8 +125,8 @@ public class RabbitConfig {
      * @return
      */
     @Bean
-    Binding bindingExchangeMessage(Queue queueMessage, TopicExchange exchange) {
-        return BindingBuilder.bind(queueMessage).to(exchange).with("topic.message");
+    Binding bindingExchangeMessage() {
+        return BindingBuilder.bind(queueMessage()).to(exchange() ).with("topic.message");
     }
     
     /**
@@ -136,8 +136,8 @@ public class RabbitConfig {
      * @return
      */
     @Bean
-    Binding bindingExchangeAck(Queue queueAck, TopicExchange exchange) {
-        return BindingBuilder.bind(queueAck).to(exchange).with("topicack");
+    Binding bindingExchangeAck() {
+        return BindingBuilder.bind(queueAck()).to(exchange() ).with("topicack");
     }
 
     /**
@@ -147,23 +147,23 @@ public class RabbitConfig {
      * @return
      */
     @Bean
-    Binding bindingExchangeMessages(Queue queueMessages, TopicExchange exchange) {
-        return BindingBuilder.bind(queueMessages).to(exchange).with("topic.#");
+    Binding bindingExchangeMessages() {
+        return BindingBuilder.bind(queueMessages()).to(exchange() ).with("topic.#");
     }
     
     @Bean
-    Binding bindingExchangeA(Queue AMessage,FanoutExchange fanoutExchange) {
-        return BindingBuilder.bind(AMessage).to(fanoutExchange);
+    Binding bindingExchangeA() {
+        return BindingBuilder.bind(AMessage()).to(fanoutExchange());
     }
 
     @Bean
-    Binding bindingExchangeB(Queue BMessage, FanoutExchange fanoutExchange) {
-        return BindingBuilder.bind(BMessage).to(fanoutExchange);
+    Binding bindingExchangeB() {
+        return BindingBuilder.bind(BMessage()).to(fanoutExchange());
     }
 
     @Bean
-    Binding bindingExchangeC(Queue CMessage, FanoutExchange fanoutExchange) {
-        return BindingBuilder.bind(CMessage).to(fanoutExchange);
+    Binding bindingExchangeC() {
+        return BindingBuilder.bind(CMessage()).to(fanoutExchange());
     }
     
     @Bean  
@@ -198,32 +198,10 @@ public class RabbitConfig {
     public DirectExchange defaultExchange() {  
         return new DirectExchange("KSHOP");  
     } 
-    
-    @Bean  
-    public Queue repeatTradeQueue() {  
-        Queue queue = new Queue("kshop.repeat.trade.queue",true,false,false);  
-        return queue;   
-    }  
-      
-    @Bean  
-    public Binding  drepeatTradeBinding() {  
-        return BindingBuilder.bind(repeatTradeQueue()).to(defaultExchange()).with("kshop.repeat.trade.queue");  
-    }  
-
-    @Bean  
-    public Queue deadLetterQueue() {  
-        Map<String, Object> arguments = new HashMap<>();  
-        arguments.put("x-dead-letter-exchange", "KSHOP");  
-        arguments.put("x-dead-letter-routing-key", "kshop.repeat.trade.queue");  
-        Queue queue = new Queue("kshop.dead.letter.queue",true,false,false,arguments);  
-        System.out.println("arguments :" + queue.getArguments());  
-        return queue;   
-    }  
-  
-    @Bean  
-    public Binding  deadLetterBinding() {  
-        return BindingBuilder.bind(deadLetterQueue()).to(defaultExchange()).with("kshop.dead.letter.queue");  
-    }  
+    /**
+     * 业务队列-实际消息
+     * @return
+     */
     @Bean  
     public Queue delayQueue() {  
         Queue queue = new Queue("DelayQueue");  
@@ -234,4 +212,37 @@ public class RabbitConfig {
     public Binding binding() {  
         return BindingBuilder.bind(delayQueue()).to(defaultExchange()).with("DelayQueue");  
     }  
+    /**
+     * 缓存队列
+     * @return
+     */
+    @Bean  
+    public Queue repeatTradeQueue() {  
+        Queue queue = new Queue("kshop.repeat.trade.queue",true,false,false);  
+        return queue;   
+    }  
+      
+    @Bean  
+    public Binding  drepeatTradeBinding() {  
+        return BindingBuilder.bind(repeatTradeQueue()).to(defaultExchange()).with("kshop.repeat.trade.queue");  
+    }  
+    /**
+     * 死信队列
+     * @return
+     */
+    @Bean  
+    public Queue deadLetterQueue() {  
+        Map<String, Object> arguments = new HashMap<>();  
+        arguments.put("x-dead-letter-exchange", "KSHOP");  
+        arguments.put("x-dead-letter-routing-key", "kshop.repeat.trade.queue");  //死信转发到缓冲队列，缓冲队列转发到业务队列，好处是扩展性更强，可以有多个业务队列，但是只设置一个死信队列
+        Queue queue = new Queue("kshop.dead.letter.queue",true,false,false,arguments);  
+        System.out.println("arguments :" + queue.getArguments());  
+        return queue;   
+    }  
+  
+    @Bean  
+    public Binding  deadLetterBinding() {  
+        return BindingBuilder.bind(deadLetterQueue()).to(defaultExchange()).with("kshop.dead.letter.queue");  
+    }  
+    
 }

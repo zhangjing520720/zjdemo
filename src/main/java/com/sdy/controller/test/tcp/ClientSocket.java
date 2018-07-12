@@ -23,14 +23,11 @@ public class ClientSocket {
 			os.close();
 			is.close();
 			s.close();
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		
-		
 		
 	}
  

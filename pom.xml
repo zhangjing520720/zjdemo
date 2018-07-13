@@ -62,7 +62,14 @@
 		<artifactId>spring-boot-starter-test</artifactId>
 		<scope>test</scope>
 	</dependency>    
-	<!-- mybatis 依赖 -->
+	
+	<!-- mybatis-plus 依赖 -->
+	<dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus</artifactId>
+            <version>2.1.8</version>
+     </dependency>
+    <!-- mybatis 依赖 -->
 	<dependency>
 		<groupId>org.mybatis.spring.boot</groupId>
 		<artifactId>mybatis-spring-boot-starter</artifactId>

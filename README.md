@@ -18,6 +18,7 @@
 * node.js
 * ElasticSearch
 * Socket通讯
+* JUnit测试
 
 等等乱七八糟的示例，持续完善中！
 

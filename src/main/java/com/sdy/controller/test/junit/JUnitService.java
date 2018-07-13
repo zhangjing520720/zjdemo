@@ -11,19 +11,6 @@ import java.util.Date;
 
 public class JUnitService {
 	private final static SimpleDateFormat sdfYear = new SimpleDateFormat("yyyy");
-
-	private final static SimpleDateFormat sdfDay = new SimpleDateFormat(
-			"yyyy-MM-dd");
-	
-	private final static SimpleDateFormat sdfDays = new SimpleDateFormat(
-	"yyyyMMdd");
-
-	private final static SimpleDateFormat sdfTime = new SimpleDateFormat(
-			"yyyy-MM-dd HH:mm:ss");
-	
-	private final static SimpleDateFormat sdfTime2 = new SimpleDateFormat(
-			"yyyyMMddHHmmss");
-	
 	/**
 	 * 获取YYYY格式
 	 * 
@@ -44,7 +31,6 @@ public class JUnitService {
 			fmt.parse(s);
 			return true;
 		} catch (Exception e) {
-			// 如果throw java.text.ParseException或者NullPointerException，就说明格式不对
 			return false;
 		}
 	}

@@ -19,7 +19,7 @@ public class ClientSocket {
 			int len=is.read(buf);
 			System.out.println(new String(buf,0,len));
 			os.write("Hello,this is zhangsan".getBytes());
-			Thread.sleep(100);
+			Thread.sleep(5000);
 			os.close();
 			is.close();
 			s.close();

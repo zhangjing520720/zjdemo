@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.HashMap;
  
  
 public class ServiceSocket extends Thread{
@@ -27,24 +28,12 @@ public class ServiceSocket extends Thread{
 			is.close();
 			sock.close();
 		}catch(Exception e){
-			
-		}
-	}
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		try {
-			ServerSocket ss=new ServerSocket(6000);
-			while(true)
-			{
-				Socket s=ss.accept();
-				new ServiceSocket(s).start();
-			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
- 
+		
+		
 	}
+	
 	
 	
  

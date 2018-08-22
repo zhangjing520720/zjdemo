@@ -19,6 +19,9 @@
 * ElasticSearch
 * Socket通讯
 * JUnit测试
+* Spring的Async注解
+* Netty
+* Socket
 
 等等乱七八糟的示例，持续完善中！
 

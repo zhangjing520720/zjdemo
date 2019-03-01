@@ -5,6 +5,10 @@ public class Animal {
 	
 	int age;
 	String name;
+	public  String getTest(){
+		
+		return "animal";
+	}
 	public int getAge() {
 		return age;
 	}

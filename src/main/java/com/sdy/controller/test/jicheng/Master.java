@@ -29,5 +29,10 @@ public class Master {
 		Master m = new Master();
 		m.feed(new Dog(),"骨头");
 		m.feed(new Cat(),"鱼");
+		
+		Cat cat = new Cat();
+		String gettest = cat.getTest();
+		System.out.println(gettest);
+		
 	}
 }

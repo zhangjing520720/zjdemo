@@ -49,6 +49,9 @@ public class UserController extends BaseController{
 		} finally {
 		    atomic.decrementAndGet();
 		}
+		//测试调用线程池异步方法
+		userService.testASync(); 
+		
 		return message;
 	}
 	
@@ -96,6 +99,8 @@ public class UserController extends BaseController{
 		}
 		return message;
 	}
+	
+	
 	
 
 

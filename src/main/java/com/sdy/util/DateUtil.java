@@ -22,6 +22,14 @@ public class DateUtil {
 			"yyyyMMddHHmmss");
 
 	/**
+	 * @Description 获取当前时间戳
+	 * @return int
+	 */
+	public static int getCurrentTimestemp() {
+		Calendar cal = Calendar.getInstance();
+		return (int) (cal.getTimeInMillis() / 1000);
+	}
+	/**
 	 * 获取YYYY格式
 	 * 
 	 * @return

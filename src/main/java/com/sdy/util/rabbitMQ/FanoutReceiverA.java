@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 import com.sdy.model.User;
 
-@Component
+//@Component
 @RabbitListener(queues = "fanout.A")
 public class FanoutReceiverA {
 

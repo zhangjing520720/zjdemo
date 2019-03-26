@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.sdy.model.User;
 
-@Component
+//@Component
 public class TopicMessageAckReceiver implements ChannelAwareMessageListener{
 
 	public void onMessage(Message message, com.rabbitmq.client.Channel channel) throws Exception {  

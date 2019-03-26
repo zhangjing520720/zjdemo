@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 import com.sdy.model.User;
 
-@Component
+//@Component
 @RabbitListener(queues = "topic.message")
 public class TopicMessageReceiver1 {
 

@@ -27,7 +27,7 @@ import com.rabbitmq.client.Channel;
  * 消息确认的config
  * @author Rex
  */
-@Component
+//@Component
 public class RabbitConfig {
 
 	@Value("${spring.rabbitmq.addresses}")

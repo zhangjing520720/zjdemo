@@ -17,6 +17,7 @@ import com.sdy.util.elasticsearch.Tutorial;
 /**
  * Elasticsearch测试
  * 通过docker安装的Elasticsearch
+ * 要使用ES需要把yml配置文件放开
  * @author Rex
  */
 @RestController

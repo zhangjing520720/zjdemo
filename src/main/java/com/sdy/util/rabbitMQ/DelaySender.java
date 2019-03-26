@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import com.aliyun.openservices.shade.com.alibaba.fastjson.JSON;
 
 
-@Component
+//@Component
 public class DelaySender {
 
 	@Autowired

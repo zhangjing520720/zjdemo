@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import com.aliyun.openservices.shade.com.alibaba.fastjson.JSON;
 import com.sdy.model.User;
 
-@Component
+//@Component
 @RabbitListener(queues = "kshop.repeat.trade.queue")
 public class DelayTradeReceiver {
 

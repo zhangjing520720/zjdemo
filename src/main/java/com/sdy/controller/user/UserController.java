@@ -99,7 +99,31 @@ public class UserController extends BaseController{
 		}
 		return message;
 	}
-	
+	/**
+	 * 编辑
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/upUser",headers = "Accept=*/*", method = RequestMethod.PUT,produces = "application/json;charset=UTF-8")
+	public String upUser(HttpServletRequest request,@RequestBody PageData pd){
+		String message ="";
+		if(pd.get("id")!=null || !pd.getString("id").equals("")){
+			Object obj = new Object();
+			try{
+				obj =RedisUtil.getKey(pd.get("id").toString());	
+			}catch (Exception e) {}
+			if(null == obj){
+				User user = new User();
+				user.setId(pd.get("id").toString());
+				User u = userService.findOneById(user);
+				message =json.toJSONString(u);
+			}else{
+				message=obj.toString();
+			}
+		}else{
+			message="参数不齐，请传ID";
+		}
+		return message;
+	}
 	
 	
 

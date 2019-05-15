@@ -59,26 +59,19 @@ public class ApiAuthInterceptor implements HandlerInterceptor {
 		        		return false;
 			        }
 	        	}else{
-	        		if(httpServletRequest.getHeader("platform")!=null && httpServletRequest.getHeader("platform").equals("iOS")){
-	        			RequestWrapper requestWrapper = new RequestWrapper(httpServletRequest);	
-		        		System.out.println("iOS平台原始参数："+requestWrapper.getBody());
-		        		Map<String,Object> map = JSON.parseObject(requestWrapper.getBody(), Map.class);
-		        		System.out.println("iOS平台取出到map后的参数："+JSON.toJSONString(map));
-		        		if(!sign.equals(getSign2iOS(map,KEY,Long.valueOf(timestampStr),noncestr))){
-			        		PrintWriter writer = httpServletResponse.getWriter();
-			        		writer.print("{\"code\":\"407\",\"msg\":\"iOS发送POST签名错误！\"}");
-			        		return false;
-				        }
-	        		}else{
-	        			RequestWrapper requestWrapper = new RequestWrapper(httpServletRequest);
-		        		System.out.println("原始参数："+requestWrapper.getBody());
-		                if(!sign.equals(getSign(requestWrapper.getBody(),KEY,Long.valueOf(timestampStr),noncestr))){
-			        		PrintWriter writer = httpServletResponse.getWriter();
-			        		writer.print("{\"code\":\"407\",\"msg\":\"POST签名错误！\"}");
-			        		System.out.println("验签失败！");
-			        		return false;
-				        }
+        			RequestWrapper requestWrapper = new RequestWrapper(httpServletRequest);	
+	        		System.out.println("原始参数："+requestWrapper.getBody());
+	        		Map<String,Object> map = new HashMap<>();
+	        		if(requestWrapper.getBody()!=null && !requestWrapper.getBody().equals("")){
+	        			map=JSON.parseObject(requestWrapper.getBody(), Map.class);
 	        		}
+	        		System.out.println("平台取出到map后的参数："+JSON.toJSONString(map));
+	        		if(!sign.equals(getSign2(map,KEY,Long.valueOf(timestampStr),noncestr))){
+		        		PrintWriter writer = httpServletResponse.getWriter();
+		        		writer.print("{\"code\":\"407\",\"msg\":\"签名错误！\"}");
+		        		return false;
+			        }
+	        		
 	        		
 	        		
 	        	}
@@ -142,7 +135,7 @@ public class ApiAuthInterceptor implements HandlerInterceptor {
  	/**
  	 * ios端POST请求获取签名
  	 */
- 	public static String getSign2iOS(Map<String,Object> map,String key,long timestamp,String noncestr){
+ 	public static String getSign2(Map<String,Object> map,String key,long timestamp,String noncestr){
  		ArrayList<String> list = new ArrayList<String>();
         for(Map.Entry<String,Object> entry:map.entrySet()){
             if(entry.getValue()!=null && !entry.getValue().equals("")){
